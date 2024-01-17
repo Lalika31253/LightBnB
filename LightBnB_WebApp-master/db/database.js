@@ -55,7 +55,7 @@ const getUserWithId = function (id) {
 };
 
 /**
- * Add a new user to the database.
+ * Add a new user to the DB.
  * @param {{name: string, password: string, email: string}} user
  * @return {Promise<{}>} A promise to the user.
  */
