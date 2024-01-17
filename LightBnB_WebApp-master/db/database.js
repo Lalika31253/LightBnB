@@ -9,8 +9,6 @@ const pool = new Pool({
   database: 'lightbnb'
 });
 
-// the following assumes that you named your connection variable `pool` for checking purpose
-// pool.query(`SELECT title FROM properties LIMIT 10;`).then(response => {console.log(response)});
 
 /// Users
 
@@ -20,14 +18,6 @@ const pool = new Pool({
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function (email) {
-  // let resolvedUser = null;
-  // for (const userId in users) {
-  //   const user = users[userId];
-  //   if (user && user.email.toLowerCase() === email.toLowerCase()) {
-  //     resolvedUser = user;
-  //   }
-  // }
-  // return Promise.resolve(resolvedUser);
   const query = 'SELECT * FROM users WHERE email =$1';
   return pool.query(query, [email])
     .then((result) => {
@@ -49,7 +39,6 @@ const getUserWithEmail = function (email) {
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function (id) {
-  // return Promise.resolve(users[id]);
   const query = 'SELECT * FROM users WHERE id =$1';
   return pool.query(query, [id])
     .then((result) => {
@@ -70,11 +59,8 @@ const getUserWithId = function (id) {
  * @param {{name: string, password: string, email: string}} user
  * @return {Promise<{}>} A promise to the user.
  */
+
 const addUser = function (user) {
-  // const userId = Object.keys(users).length + 1;
-  // user.id = userId;
-  // users[userId] = user;
-  // return Promise.resolve(user);
   const query = 'INSERT INTO users (name, email, password) VALUES($1, $2, $3) RETURNING *';
   return pool.query(query, [user.name, user.email, user.password])
     .then((result) => {
@@ -98,8 +84,6 @@ const addUser = function (user) {
  * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function (guest_id, limit = 10) {
-  // return getAllProperties(null, 2);
-
   const query = `SELECT reservations.*, properties.* 
     FROM reservations
     JOIN properties ON reservations.property_id = properties.id
@@ -121,7 +105,6 @@ const getAllReservations = function (guest_id, limit = 10) {
       console.log("Guest id eror is:", err);
       throw err;
     });
-
 };
 
 /// Properties
@@ -133,9 +116,7 @@ const getAllReservations = function (guest_id, limit = 10) {
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 
-
 const getAllProperties = function (options, limit = 10) {
-
   const queryParams = []; //to hold any parameters that may be available for the query
 
   let queryString = "SELECT properties.*, AVG(property_reviews.rating) AS average_rating " +
@@ -175,14 +156,11 @@ const getAllProperties = function (options, limit = 10) {
     queryString += "AND property_reviews.rating >= $" + queryParams.length;
   }
 
-
   queryParams.push(limit);
   //add the rest of the query that comes after the WHERE clause
   queryString += `GROUP BY properties.id 
     ORDER BY cost_per_night
     LIMIT $${queryParams.length}`;
-
-  // console.log(queryString, queryParams);
 
   return new Promise((resolve, reject) => {
     pool
@@ -208,29 +186,24 @@ const getAllProperties = function (options, limit = 10) {
  * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function (property) {
-  // const propertyId = Object.keys(properties).length + 1;
-  // property.id = propertyId;
-  // properties[propertyId] = property;
-  // return Promise.resolve(property);
-
   const queryParams = [ //to hold all parameters for the query
-  property.owner_id,
-  property.title,
-  property.description,
-  property.thumbnail_photo_url,
-  property.cover_photo_url,
-  property.cost_per_night,
-  property.street,
-  property.city,
-  property.province,
-  property.post_code,
-  property.country,
-  property.parking_spaces,
-  property.number_of_bathrooms,
-  property.number_of_bedrooms
-  ]; 
+    property.owner_id,
+    property.title,
+    property.description,
+    property.thumbnail_photo_url,
+    property.cover_photo_url,
+    property.cost_per_night,
+    property.street,
+    property.city,
+    property.province,
+    property.post_code,
+    property.country,
+    property.parking_spaces,
+    property.number_of_bathrooms,
+    property.number_of_bedrooms
+  ];
 
-  const query = `INSERT INTO properties (owner_id, tite, description, thumbnail_photo_url, cover_photo_url, cost_per_night, street, 
+  const query = `INSERT INTO properties (owner_id, title, description, thumbnail_photo_url, cover_photo_url, cost_per_night, street, 
   city, province, post_code, country, parking_spaces, number_of_bathrooms, number_of_bedrooms)
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
   RETURNING * `;
@@ -247,8 +220,6 @@ const addProperty = function (property) {
       console.log("Error adding property is:", err);
       throw err;
     });
-
-
 };
 
 
