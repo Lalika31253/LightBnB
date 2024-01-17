@@ -77,17 +77,17 @@ const addUser = function (user) {
   // return Promise.resolve(user);
   const query = 'INSERT INTO users (name, email, password) VALUES($1, $2, $3) RETURNING *';
   return pool.query(query, [user.name, user.email, user.password])
-  .then((result) => {
-    if(result.rows.length > 0) {
-      return result.rows[0];
-    } else {
-      return null;
-    }
-  })
-  .catch((err) => {
-    console.log("User eror is:", err);
-    throw err;
-  })
+    .then((result) => {
+      if (result.rows.length > 0) {
+        return result.rows[0];
+      } else {
+        return null;
+      }
+    })
+    .catch((err) => {
+      console.log("User eror is:", err);
+      throw err;
+    });
 };
 
 /// Reservations
@@ -98,7 +98,30 @@ const addUser = function (user) {
  * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function (guest_id, limit = 10) {
-  return getAllProperties(null, 2);
+  // return getAllProperties(null, 2);
+
+  const query = `SELECT reservations.*, properties.* 
+  FROM reservations
+  JOIN properties ON reservations.property_id = properties.id
+  JOIN property_reviews ON properties.id = property_reviews.property_id
+  WHERE reservations.guest_id=$1
+  GROUP BY properties.id, reservations.id
+  ORDER BY reservations.start_date
+  LIMIT $2`;
+
+  return pool.query(query, [guest_id, limit])
+    .then((result) => {
+      if (result.rows.length > 0) {
+        return result.rows;
+      } else {
+        return null;
+      }
+    })
+    .catch((err) => {
+      console.log("Guest id eror is:", err);
+      throw err;
+    });
+
 };
 
 /// Properties
