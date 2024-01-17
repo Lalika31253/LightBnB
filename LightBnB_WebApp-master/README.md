@@ -1,5 +1,24 @@
 # LightBnB
 
+This project was build as part of the learning process at Lighthouse Labs. The purpose of this project is to design a database and use server-side JavaScript to display the information from queries to web pages.
+
+Lighthouse BnB is an app that will revolutionize the travel industry. It will allow homeowners to rent out their homes to people on vacation, creating an alternative to hotels and bed and breakfasts...Users can view property information, book reservations, view their reservations, and write reviews.
+
+## Getting Started
+
+1. Clone this repository https://github.com/Lalika31253/LightBnB onto your local device
+2. Install dependencies using the npm install command
+3. Populate your Database by runnig the following commands in psql:
+* \i migrations/01_schema.sql
+* \i seeds/01_seeds.sql
+* \i seeds/02_seeds.sql
+4. Start the web server using the npm run local command. The app will be served at http://localhost:3001/
+5. Go to http://localhost:3001/ in your browser and look for the best options for your stay or post a propperty for your future guests
+
+![Home_page] (https://github.com/Lalika31253/LightBnB/blob/main/LightBnB_WebApp-master/public/images/Lightbnb_home_page.jpg)
+![Search_page] (https://github.com/Lalika31253/LightBnB/blob/main/LightBnB_WebApp-master/public/images/Lightbnb_search_page.jpg)
+![Create_listing_page] (https://github.com/Lalika31253/LightBnB/blob/main/LightBnB_WebApp-master/public/images/Lightbnb_create_listing_page.jpg)
+
 ## Project Structure
 
 ```
