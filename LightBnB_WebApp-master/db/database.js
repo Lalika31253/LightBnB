@@ -181,7 +181,7 @@ const getAllProperties = function (options, limit = 10) {
 
 
 /**
- * Add a property to the database
+ * Add a property to the DB
  * @param {{}} property An object containing all of the property details.
  * @return {Promise<{}>} A promise to the property.
  */
