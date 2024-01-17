@@ -208,11 +208,49 @@ const getAllProperties = function (options, limit = 10) {
  * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function (property) {
-  const propertyId = Object.keys(properties).length + 1;
-  property.id = propertyId;
-  properties[propertyId] = property;
-  return Promise.resolve(property);
+  // const propertyId = Object.keys(properties).length + 1;
+  // property.id = propertyId;
+  // properties[propertyId] = property;
+  // return Promise.resolve(property);
+
+  const queryParams = [ //to hold all parameters for the query
+  property.owner_id,
+  property.title,
+  property.description,
+  property.thumbnail_photo_url,
+  property.cover_photo_url,
+  property.cost_per_night,
+  property.street,
+  property.city,
+  property.province,
+  property.post_code,
+  property.country,
+  property.parking_spaces,
+  property.number_of_bathrooms,
+  property.number_of_bedrooms
+  ]; 
+
+  const query = `INSERT INTO properties (owner_id, tite, description, thumbnail_photo_url, cover_photo_url, cost_per_night, street, 
+  city, province, post_code, country, parking_spaces, number_of_bathrooms, number_of_bedrooms)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+  RETURNING * `;
+
+  return pool.query(query, queryParams)
+    .then((result) => {
+      if (result.rows.length > 0) {
+        return result.rows;
+      } else {
+        return null;
+      }
+    })
+    .catch((err) => {
+      console.log("Error adding property is:", err);
+      throw err;
+    });
+
+
 };
+
 
 module.exports = {
   getUserWithEmail,
