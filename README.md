@@ -15,9 +15,10 @@ Lighthouse BnB is an app that will revolutionize the travel industry. It will al
 4. Start the web server using the npm run local command. The app will be served at http://localhost:3001/
 5. Go to http://localhost:3001/ in your browser and look for the best options for your stay or post a propperty for your future guests
 
-![Home_page] (https://github.com/Lalika31253/LightBnB/blob/main/LightBnB_WebApp-master/public/images/Lightbnb_home_page.jpg)
-![Search_page] (https://github.com/Lalika31253/LightBnB/blob/main/LightBnB_WebApp-master/public/images/Lightbnb_search_page.jpg)
-![Create_listing_page] (https://github.com/Lalika31253/LightBnB/blob/main/LightBnB_WebApp-master/public/images/Lightbnb_create_listing_page.jpg)
+![Home_page](https://github.com/Lalika31253/LightBnB/blob/main/LightBnB_WebApp-master/public/pictures/Lightbnb_home_page.jpg)
+![Search_page](https://github.com/Lalika31253/LightBnB/blob/main/LightBnB_WebApp-master/public/pictures/Lightbnb_search_page.jpg)
+![Create_listing_page](https://github.com/Lalika31253/LightBnB/blob/main/LightBnB_WebApp-master/public/pictures/Lightbnb_create_listing_page.jpg)
+
 
 ## Project Structure
 
